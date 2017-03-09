@@ -62,7 +62,7 @@ module.exports = function(grunt) {
       },
       css: {
         files: 'public/*.css',
-        tasks: ['cssmin:dist']
+        tasks: ['cssmin']
       }
     },
 
@@ -95,7 +95,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [ 'eslint', 'mochaTest', 'concat', 'uglify', 'css']);
+  grunt.registerTask('build', [ 'eslint', 'mochaTest', 'concat', 'uglify', 'cssmin:dist']);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
