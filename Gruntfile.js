@@ -9,7 +9,8 @@ module.exports = function(grunt) {
       dist: {
         src: ['public/lib/*.js', 'public/client/*.js'],
         dest: 'dist/build.js'
-      },
+      }
+    },
 
     mochaTest: {
       test: {
@@ -55,11 +56,11 @@ module.exports = function(grunt) {
       }
     },
 
-    shell: {
-      prodServer: {
+      shell: {
+        prodServer: {
+        }
       }
-    }
-  });
+    });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
