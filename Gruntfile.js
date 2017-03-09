@@ -30,7 +30,7 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'public/dist/output.min.js': ['dist/build.js']
+          'public/dist/output.min.js': ['public/dist/build.js']
         }
       }
     },
@@ -117,5 +117,5 @@ module.exports = function(grunt) {
     'build',
     'upload'
   ]);
-  
+
 };
