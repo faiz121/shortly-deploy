@@ -8,7 +8,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: ['public/lib/*.js', 'public/client/*.js'],
-        dest: 'dist/build.js'
+        dest: 'public/dist/build.js'
       }
     },
 
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'dist/output.min.js': ['dist/build.js']
+          'public/dist/output.min.js': ['public/dist/build.js']
         }
       }
     },
@@ -42,6 +42,11 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
+      dist: {
+        files: {
+          'public/dist/style.min.css': ['public/dist/style.css']
+        }
+      }
     },
 
     watch: {
@@ -61,10 +66,12 @@ module.exports = function(grunt) {
       }
     },
 
-      shell: {
-        prodServer: {
-        }
+    shell: {
+      prodServer: {
+        command: 'git push live master'
       }
+    }
+      // }
     });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -88,11 +95,11 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
-  ]);
+  grunt.registerTask('build', [ 'eslint', 'mochaTest', 'concat', 'uglify']);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
+      grunt.task.run(['shell']);
       // add your production server task here
     } else {
       grunt.task.run([ 'server-dev' ]);
@@ -100,6 +107,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', [
+      'build', 'upload'
     // add your deploy tasks here
   ]);
 
