@@ -4,12 +4,12 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     concat: {
       options: {
-        separator: ';'
+        separator: ';',
       },
       dist: {
         src: ['public/lib/*.js', 'public/client/*.js'],
-        dest: 'public/dist/build.js'
-      }
+        dest: 'public/dist/build.js',
+      },
     },
 
     mochaTest: {
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'public/dist/output.min.js': ['public/dist/build.js']
+          'public/dist/output.min.js': ['dist/build.js']
         }
       }
     },
@@ -44,9 +44,12 @@ module.exports = function(grunt) {
     cssmin: {
       dist: {
         files: {
-          'public/dist/style.min.css': ['public/dist/style.css']
+          'public/dist/style.min.css': ['public/style.css']
         }
-      }
+      },
+      options: {
+        keepSpecialComments: 0
+      },
     },
 
     watch: {
@@ -70,9 +73,8 @@ module.exports = function(grunt) {
       prodServer: {
         command: 'git push live master'
       }
-    }
-      // }
-    });
+    },
+  });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -95,20 +97,25 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [ 'eslint', 'mochaTest', 'concat', 'uglify', 'cssmin:dist']);
+  grunt.registerTask('build', [
+    'eslint',
+    'mochaTest',
+    'concat',
+    'uglify',
+    'cssmin'
+  ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       grunt.task.run(['shell']);
-      // add your production server task here
     } else {
-      grunt.task.run([ 'server-dev' ]);
+      grunt.task.run(['server-dev']);
     }
   });
 
   grunt.registerTask('deploy', [
-      'build', 'upload'
-    // add your deploy tasks here
+    'build',
+    'upload'
   ]);
 
 
