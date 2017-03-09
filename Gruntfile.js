@@ -28,6 +28,11 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      dist: {
+        files: {
+          'dist/output.min.js': ['dist/build.js']
+        }
+      }
     },
 
     eslint: {
