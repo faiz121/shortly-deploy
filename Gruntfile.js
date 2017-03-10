@@ -12,6 +12,8 @@ module.exports = function(grunt) {
       },
     },
 
+    clean: ["public/dist"],
+
     mochaTest: {
       test: {
         options: {
@@ -79,6 +81,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-mocha-test');
@@ -98,6 +101,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'clean',
     'eslint',
     'mochaTest',
     'concat',
